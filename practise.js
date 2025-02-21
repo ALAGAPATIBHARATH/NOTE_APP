@@ -46,7 +46,8 @@ showLogin.addEventListener("click", (e) => {
 registerBtn.addEventListener("click", () => {
     let username = document.getElementById("registerUsername").value;
     let password = document.getElementById("registerPassword").value;
-
+    registerError.textContent = "";
+    registerSuccess.textContent = "";
     if (username && password) {
         if (localStorage.getItem(username)) {
             registerError.textContent = "Username already exists!";
@@ -55,11 +56,7 @@ registerBtn.addEventListener("click", () => {
             localStorage.setItem(username, JSON.stringify({ password }));
             registerSuccess.textContent = "Registration successful! Please login.";
             registerError.textContent = "";
-            setTimeout(() => {
-                // Redirect to login after successful registration
-                registerSection.style.display = "none";  // Hide registration form
-                loginSection.style.display = "flex";  // Show login form
-            }, 2000);
+            
         }
     } else {
         registerError.textContent = "Please fill out both fields!";
@@ -71,7 +68,7 @@ registerBtn.addEventListener("click", () => {
 loginBtn.addEventListener("click", () => {
     let enteredUsername = document.getElementById("username").value;
     let enteredPassword = document.getElementById("password").value;
-
+    loginError.textContent = "";
     let storedUser = localStorage.getItem(enteredUsername);
     if (storedUser) {
         let userData = JSON.parse(storedUser);
